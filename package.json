@@ -1,0 +1,17 @@
+{
+  "name": "simple-todo-webapp",
+  "version": "1.0.0",
+  "description": "A simple webapp that stores todo items in a database and relates them together",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon -L src/index.js"
+  },
+  "author": "Christopher Cautivar",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
