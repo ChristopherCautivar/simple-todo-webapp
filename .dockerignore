@@ -1,0 +1,6 @@
+.gitignore
+*.drawio
+node_modules/*
+*.LOG
+*.log
+.git
