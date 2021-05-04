@@ -4,7 +4,6 @@ A program that stores, relates, and displays todo entities via a web application
 ## Entities
 * Todos
     * hold relevant information or actionable information
-    * 
 * Groups
     * Group together Todos for a common purpose or reasoning as specified by the user
     * More flexible than tags
