@@ -39,6 +39,6 @@ A program that stores, relates, and displays todo entities via a web application
 * Use lazy loading in cases where large or complex todos/information is needed
 
 ## Mockup
-<img src='./databaseMockup.jpg' title='Mockup' alt='A mockup of the database'>
+<img src='./databaseMockup.jpg' title='DatabaseMockup' alt='A mockup of the database'>
 
 <img src='./model.jpg' title='Model' alt='A mockup of the ui'>
