@@ -1,5 +1,5 @@
 # Simple Todo Webapp
-A program that stores, relates, and displays todo entities via a web application in order to help users better manage and keep track of their time.
+A program that stores, relates, and displays todo entities via a web application in order to help users better manage and keep track of their time. Currently runs on http://localhost:3000/
 
 ## Entities
 * Todos
