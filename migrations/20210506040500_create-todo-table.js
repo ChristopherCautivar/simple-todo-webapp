@@ -23,7 +23,6 @@ exports.up = function(knex) {
         tbl.unique("title");
     })
     .createTable("related_groups", tbl => {
-        tbl.increments();
         tbl.timestamps(false,true);
         // foreign key to todos table
         tbl.integer("member_id")
@@ -50,7 +49,6 @@ exports.up = function(knex) {
         tbl.unique("title");
     })
     .createTable("tag_groups", tbl => {
-        tbl.increments();
         tbl.timestamps(false,true);
         tbl.integer("todo_id")
         .unsigned()
@@ -67,7 +65,6 @@ exports.up = function(knex) {
         tbl.primary(["todo_id","tag_id"])
     })
     .createTable("prerequisite_groups", tbl => {
-        tbl.increments();
         tbl.timestamps(false,true);
         tbl.integer("parent_id")
         .unsigned()
@@ -87,5 +84,10 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
     //undo and rollback changes
-  
+    return knex.schema.dropTableIfExists("todos")
+    .dropTableIfExists("tag_groups")
+    .dropTableIfExists("tags")
+    .dropTableIfExists("related_groups")
+    .dropTableIfExists("groups")
+    .dropTableIfExists("prerequisite_groups")
 };

@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './persistence/simple-todo-webapp.db3'
+      filename: './src/persistence/simple-todo-webapp.db3'
     }
   },
   useNullAsDefault: true
