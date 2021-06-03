@@ -6,7 +6,7 @@ A program that stores, relates, and displays todo entities via a web application
     * hold relevant information or actionable information
 * Groups
     * Group together Todos for a common purpose or reasoning as specified by the user
-    * More flexible than tags
+    * More flexible and transient than tags
 * Tags
     * Tags that help catagorize Todos and Groups
     * Intended to be an essential part of organizing Todos
