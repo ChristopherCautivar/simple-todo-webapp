@@ -6,9 +6,9 @@ module.exports = {
     client: 'sqlite3',
     connection: {
       filename: './src/persistence/simple-todo-webapp.db3'
-    }
+    },
+    useNullAsDefault: true
   },
-  useNullAsDefault: true
   // staging: {
   //   client: 'postgresql',
   //   connection: {

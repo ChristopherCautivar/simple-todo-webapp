@@ -6,7 +6,7 @@ exports.up = function(knex) {
         // create/update timestamps in datetime form
         tbl.timestamps(false,true);
         tbl.boolean("completed")
-        .notNullable;
+        .notNullable();
         tbl.text("title")
         .notNullable();
         tbl.text("description");

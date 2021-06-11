@@ -3,7 +3,7 @@ version: "3.8"
 services:
   interface:
     build: ./
-    image: christophercautivar/dev-simple-todo-webapp
+    image: christophercautivar/dev-simple-todo-webapp-v2
     ports:
       - 3000:3000
     working_dir: /app
