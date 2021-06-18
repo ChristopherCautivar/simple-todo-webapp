@@ -1,15 +1,20 @@
 const express = require('express');
-const todos = require("../models/dbHelpers")
 const todosRouter = require("./api/todoRoutes")
 
 // App
 const server = express();
 server.use(express.json());
+server.set("views", __dirname + "/views")
+server.set("view engine", "ejs");
 
 server.get('/', (req, res) => {
-    res.send("Hello World!")
+    res.render("homepage");
 });
 
-server.use("/api/todos", todosRouter)
+server.get('/app', (req, res) => {
+    res.render("viewpage");
+});
 
-module.exports = server
+server.use("/api/todos", todosRouter);
+
+module.exports = server;
