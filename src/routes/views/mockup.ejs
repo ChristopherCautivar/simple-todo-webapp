@@ -9,12 +9,12 @@
                 text-align: center;
                 border: 3px solid green;
             }
-            div{
-                padding: 15px;
+            .title{
+                text-align: center;
             }
             .group{
                 margin: 5px;
-                padding: 10px;
+                padding: 15px;
                 border: 2px solid black;
                 border-radius: 25px;
             }
@@ -24,7 +24,6 @@
             }
             .child{
                 margin-left: 10px;
-                margin-right: -10px;
             }
             .empty{
                 border: none;
@@ -35,6 +34,9 @@
         <h1>Mockup:</h1>
         <div class="container" id="grid">
             <div class="group container" id="group1">
+                <div class="row title" id="title1">
+                    <span><h3>Group 1</h3></span>
+                </div>
                 <div class="row" id="parents">
                     <div class="todo col-sm" id="todo1">
                         1. Todo Item
@@ -73,6 +75,9 @@
                 </div>
             </div>
             <div class="group container" id="group2">
+                <div class="row title" id="title2">
+                    <span><h3>Group 2</h3></span>
+                </div>
                 <div class="row" id="parents">
                     <div class="todo col-sm" id="todo1">
                         1. Todo Item

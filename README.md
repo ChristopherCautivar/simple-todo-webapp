@@ -38,7 +38,9 @@ A program that stores, relates, and displays todo entities via a web application
 * Todos can be minimized to just title, or maximized to show all info
 * Use lazy loading in cases where large or complex todos/information is needed
 
-## Mockup
-<img src='./databaseMockup.jpg' title='DatabaseMockup' alt='A mockup of the database'>
+## Mockups and Models
+<img src='./databaseModel.jpg' title='DatabaseModel' alt='A model of the database'>
 
-<img src='./model.jpg' title='Model' alt='A mockup of the ui'>
+<img src='./earlyAppModel.jpg' title='EarlyAppModel' alt='A model of the ui'>
+
+<img src='./appMockup.jpg' title='AppMockup' alt='A Mockup of the ui generated using bootstrap and css rules'>

@@ -11,8 +11,12 @@ server.get('/', (req, res) => {
     res.render("homepage");
 });
 
+server.get('/mockup', (req, res) => {
+    res.render("mockup");
+});
+
 server.get('/app', (req, res) => {
-    res.render("viewpage");
+    res.render("app");
 });
 
 server.use("/api/todos", todosRouter);
