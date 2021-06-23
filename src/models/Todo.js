@@ -1,15 +1,17 @@
 import { Tag } from "./Tag.js";
 
-export class todo {
-    get defaults() {
-        return {
-            Id: -1,
-            content: "",
-            title: "",
-            weight: "",
-            timeEstimate: new Date(0, 0, 0, 1, 30, 0, 0),
-            created: new Date(),
-            due: new Date()
-        };
-    }
+export class Todo {
+    #id = -1
+    // of form: 2021-06-10 01:15:19
+    #dateCreated = ""
+    #dateUpdated = ""
+    completed = false
+    title = ""
+    description = ""
+    tag = []
+    weight = 0
+    prerequisites = []
+    // DateTime objects
+    timeEstimate = ""
+    dueDate = ""
 }

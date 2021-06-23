@@ -13,8 +13,8 @@
                 text-align: center;
             }
             .group{
-                margin: 5px;
-                padding: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
                 border: 2px solid black;
                 border-radius: 25px;
             }
@@ -28,72 +28,87 @@
             .empty{
                 border: none;
             }
+            #grid{
+                border: 2px solid red;
+            }
         </style>
         <script>
+            function makeEntityElement(entity, editFields){
+                result = "";
+                for(var property in entity){
+                    // private properties should not be included in this for loop
+                    // if editFields, also return the corresponding form or input type to allow the user to submit an ajax call
+                    // to create/update the field. ex. textbox or datepicker
+                }
+                return result;
+            }
+            
+            function makeElement(cssClass, id, content){
+                // makes the desired element... well in the first place we already have objects
+                // so this function should simply create a visual representation of such an object
+                // therfore: cssClass is solely in charge of applying the correct css rules to the element
+                // via a combination fo user defined styling and object-style-rule pairs.
+                // id carries over from the database, adjusted for the first id called
+                // content is built with a combination of makeElement calls and the content stored in database
+                return `<div class="${cssClass}" id="${id}">${content}</div>`
+            }
             function makeGroup(group){
+                // not every todo will belong to a group
                 // append group info
-                $("#grid").append(`
-                <div class="group container" id="group1">
-                    <div class="row title" id="title1">
-                        <span><h3>Group 1</h3></span>
-                    </div>
-                    <div class="row" id="parents1">
-                    </div>
-                </div>`);
+                // mock first group instantiated:
+                // will have to offset display id by group in the future
+                id = 1
+                $("#grid").append(
+                    makeElement("group", `group${id}`,
+                        makeElement("row title", `title${id}`, `<span><h3>Group ${id}</h3></span>`) + 
+                        makeElement("row", `parents${id}`, "") +
+                        makeElement("row", `children${id}`, "")
+                    )
+                )
                 // populate todos
-                makeTodos(null);
+                makeTodos();
+            }
+            function makeChild(){
+                // if there is no child make an empty div
             }
             function makeTodos(todos){
                 // append todo information into groups
                 // first the parents
-                $('#parents1').append(`
-                <div class="todo col-sm" id="todo1">
-                    1. Todo Item
-                    <ul>
-                        <li>Description and other fields</li>
-                    </ul>
-                </div>
-                <div class="todo col-sm" id="todo2">
-                    2. Todo Item
-                    <ul>
-                        <li>Description and other fields</li>
-                    </ul>
-                </div>
-                <div class="todo col-sm" id="todo3">
-                    3. Todo Item
-                    <ul>
-                        <li>Description and other fields</li>
-                    </ul>
-                </div>
-                `);
-                // then the children
-                $("#group1").append(`
-                <div class="row" id="children">
-                    <div class="todo child col-sm" id="todo1a">
-                        1a. Subtask
-                        <ul>
-                            <li>Description and other fields</li>
-                        </ul>
-                    </div>
-                    <div class="empty todo child col-sm" id="todo2a">
-                    </div>
-                    <div class="todo child col-sm" id="todo3a">
-                        3a. Subtask
-                        <ul>
-                            <li>Description and other fields</li>
-                        </ul>
-                    </div>
-                </div>
-                `)
+                groupId = 1
+                todoId = [1,2,3]
+                todoId.forEach(i => {
+                    $(`#parents${groupId}`).append(
+                        makeElement("todo col-sm", `todo${i}`,
+                            `
+                            ${i}. Todo Item
+                            <ul>
+                                <li>Description and other fields</li>
+                            </ul>
+                            `
+                        )
+                    )
+                    // then the children
+                    $(`#children${groupId}`).append(
+                        makeElement("todo child col-sm", `todo${i}a`,
+                            `
+                            ${i}a. Todo Item
+                            <ul>
+                                <li>Description and other fields</li>
+                            </ul>
+                            `
+                        )
+                    )
+                });
             }
             $(document).ready( function(){
+                // for each group loaded into the array of groups
                 makeGroup();
             });
         </script>
     </head>
     <body>
         <h1>Prototype:</h1>
-        <div class="container" id="grid">
+        <div class="container-fluid" id="grid">
         </div>
     </body>
 </html>

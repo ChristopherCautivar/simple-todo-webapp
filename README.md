@@ -24,6 +24,8 @@ A program that stores, relates, and displays todo entities via a web application
 * Views
     * An hourly log view, saved on a daily basis in a format that can be recorded and analyzed
     * A freeform scratch space view, displaying as many related or selected todo items on a single page, sorted by user specification, and highly customizeable
+        * allows users to make todos and add relationships to them in the same view
+        * Add new or existing todos to groups
     * Tags will be suggested as the user fills in a field
 * Database
     * sqlite3 for lightweight storage within the container
@@ -44,3 +46,6 @@ A program that stores, relates, and displays todo entities via a web application
 <img src='./earlyAppModel.jpg' title='EarlyAppModel' alt='A model of the ui'>
 
 <img src='./appMockup.jpg' title='AppMockup' alt='A Mockup of the ui generated using bootstrap and css rules'>
+
+## Note about browser compatibility
+This webapp uses javascript features that are not compatible with any Internet Explorer or Samsung Internet web browsers.
