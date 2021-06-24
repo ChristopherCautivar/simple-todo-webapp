@@ -103,6 +103,14 @@
             $(document).ready( function(){
                 // for each group loaded into the array of groups
                 makeGroup();
+                $.ajax({
+                    method: "GET",
+                    url: "/api/todos/testData",
+                    dataType: "json",
+                    success: function(result,status){
+                        alert(result)
+                    }
+                })
             });
         </script>
     </head>

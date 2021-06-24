@@ -27,6 +27,7 @@ A program that stores, relates, and displays todo entities via a web application
         * allows users to make todos and add relationships to them in the same view
         * Add new or existing todos to groups
     * Tags will be suggested as the user fills in a field
+    * Query for todos vs loading them all for inspection
 * Database
     * sqlite3 for lightweight storage within the container
     * Organized, with logical schema
