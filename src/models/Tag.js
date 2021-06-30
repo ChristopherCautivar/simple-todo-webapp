@@ -1,12 +1,17 @@
 class Tag {
-    #id = -1
-    #dateCreated = ""
-    #dateUpdated = ""
-    title = ""
-    suggestedWeight = 0
-    description = ""
+    #id
+    #dateCreated
+    #dateUpdated
+    title
+    description
+    suggestedWeight
 
-    constructor(id,dateCreated,dateUpdated,title,suggestedWeight,description){
+    constructor({id = -1,
+        dateCreated = "",
+        dateUpdated = "",
+        title = "",
+        suggestedWeight = 0,
+        description = ""} = {}) {
         this.#id = id
         this.#dateCreated = dateCreated
         this.#dateUpdated = dateUpdated
@@ -17,6 +22,14 @@ class Tag {
     
     getId(){
         return this.#id
+    }
+
+    getDateCreated(){
+        return this.#dateCreated;
+    }
+
+    getDateUpdated(){
+        return this.#dateUpdated;
     }
 }
 

@@ -21,6 +21,9 @@ A program that stores, relates, and displays todo entities via a web application
     * by weight
     * by urgent
     * by date (created, due, etc)
+* I was originally inspired to make this program because I noticed that once I stopped using paper-based daily planners, I found it harder to keep track of my priorities, deadlines, and recent relevant information.
+    * As a result, I wanted try designing a paperless, streamlined application that prompted me to fill out relevant information as necessary.
+    * Theoretically, this would allow for both mindful processing of dense tasks and information and quick input for simpler tasks.
 * Views
     * An hourly log view, saved on a daily basis in a format that can be recorded and analyzed
     * A freeform scratch space view, displaying as many related or selected todo items on a single page, sorted by user specification, and highly customizeable
@@ -28,6 +31,7 @@ A program that stores, relates, and displays todo entities via a web application
         * Add new or existing todos to groups
     * Tags will be suggested as the user fills in a field
     * Query for todos vs loading them all for inspection
+    * Users can only ever work on one entity at a time, and will receive non-blocking success or failure popups after clearing the fields, when a response from the server is recieved
 * Database
     * sqlite3 for lightweight storage within the container
     * Organized, with logical schema

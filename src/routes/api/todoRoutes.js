@@ -3,15 +3,19 @@ const todos = require("../../models/dbHelpers")
 const Todo = require("../../models/Todo")
 
 const router = express.Router()
+router.use(express.urlencoded({extended:true}))
 
-// since server already uses this router, all pathes are relative to the parameter given in server
+// since server already uses this router, all paths are relative to the parameter given in server
 router.post("/", (req, res) => {
+    // send req.body object to dbhelpers addTodo
     todos.addTodo(req.body)
     .then(lesson => {
         res.status(200).json(lesson)
     })
     .catch(error => {
-        res.status(500).json({message : "error adding todo"})
+        // handles any error dbhelpers encounters
+        res.status(500).json({message : `error adding todo: ${error}`})
+        console.log(error)
     })
 });
 
@@ -31,12 +35,12 @@ router.get("/getById/:id", (req, res) => {
 });
 
 router.get("/testData", (req,res) => {
-    // Test Objects
+    // send test objects when endpoint is hit
     todo1 = new Todo({id : 1,
         dateCreated : "",
         dateUpdated : "",
         completed : false,
-        title : "",
+        title : "test",
         description : "",
         tags : [],
         weight : 0,
@@ -47,7 +51,7 @@ router.get("/testData", (req,res) => {
         dateCreated : "",
         dateUpdated : "",
         completed : false,
-        title : "",
+        title : "test2",
         description : "",
         tags : [],
         weight : 0,

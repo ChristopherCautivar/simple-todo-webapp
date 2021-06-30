@@ -100,7 +100,7 @@
                     )
                 });
             }
-            $(document).ready( function(){
+            $(document).ready(function(){
                 // for each group loaded into the array of groups
                 makeGroup();
                 $.ajax({
@@ -108,7 +108,9 @@
                     url: "/api/todos/testData",
                     dataType: "json",
                     success: function(result,status){
-                        alert(result)
+                        for(todo in result){
+                            alert(result[todo]["title"])
+                        }
                     }
                 })
             });

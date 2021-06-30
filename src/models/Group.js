@@ -1,12 +1,17 @@
 class Group{
-    #id = -1
+    #id
     // of form: 2021-06-10 01:15:19
-    #dateCreated = ""
-    #dateUpdated = ""
-    title = ""
-    description = ""
-    
-    constructor(id, dateCreated, dateUpdated, title, description){
+    #dateCreated
+    #dateUpdated
+    title
+    description
+
+    //use destructuring and default values to allow both a parameterized and default constructor
+    constructor({id = -1,
+        dateCreated = "",
+        dateUpdated = "",
+        title = "",
+        description = ""} = {}) {
         this.#id = id
         this.#dateCreated = dateCreated
         this.#dateUpdated = dateUpdated
@@ -16,6 +21,14 @@ class Group{
 
     getId(){
         return this.#id
+    }
+
+    getDateCreated(){
+        return this.#dateCreated;
+    }
+
+    getDateUpdated(){
+        return this.#dateUpdated;
     }
 }
 

@@ -2,6 +2,7 @@
 const knex = require("knex");
 const config = require("../../knexfile");
 const db = knex(config.development)
+const Todo = require("./Todo")
 
 module.exports = {
     addTodo,
@@ -10,7 +11,11 @@ module.exports = {
 }
 
 async function addTodo(todo){
-    const [id] = await db("todos").insert(todo);
+    // receives req.body and converts it to a new todo
+    // note that any private fields are ignored when knex
+    // tries to add them to the database
+    // TODO: add logic if todo.getId = -1, update, else insert new
+    const [id] = await db("todos").insert(new Todo(todo));
     return id;
 }
 
