@@ -10,6 +10,7 @@ class Todo {
     #dateCreated
     #dateUpdated
     title
+    // sqlite3 uses 0 and 1 for false and true
     completed
     description
     #tags
@@ -23,7 +24,7 @@ class Todo {
     constructor({id = -1,
         dateCreated = "",
         dateUpdated = "",
-        completed = false,
+        completed = 0,
         title = "",
         description = "",
         tags = [],
