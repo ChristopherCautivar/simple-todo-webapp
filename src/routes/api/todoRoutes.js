@@ -9,8 +9,8 @@ router.use(express.urlencoded({extended:true}))
 router.post("/", (req, res) => {
     // send req.body object to dbhelpers addTodo
     todos.addTodo(req.body)
-    .then(lesson => {
-        res.status(200).json(lesson)
+    .then(todo => {
+        res.status(200).json(todo)
     })
     .catch(error => {
         // handles any error dbhelpers encounters
@@ -24,7 +24,7 @@ router.get("/getById/:id", (req, res) => {
     todos.getTodoById(id)
     .then(todo => {
         if(todo){
-            res.status(200).json(todo)
+            res.status(200).json([new Todo(todo)])
         } else {
             res.status(404).json({message: "todo not found"})
         }

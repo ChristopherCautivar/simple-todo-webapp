@@ -6,6 +6,7 @@ const server = express();
 server.use(express.json());
 server.set("views", __dirname + "/views")
 server.set("view engine", "ejs");
+server.use("/static", express.static(__dirname + "/static"))
 
 server.get('/', (req, res) => {
     res.render("homepage");
