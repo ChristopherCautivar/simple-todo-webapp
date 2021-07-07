@@ -1,4 +1,26 @@
-div{
+h1{
     text-align: center;
     border: 3px solid green;
+}
+.title{
+    text-align: center;
+}
+.group{
+    padding-right: 15px;
+    padding-left: 15px;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+.todo{
+    border: 2px solid green;
+    border-radius: 25px;
+}
+.child{
+    margin-left: 10px;
+}
+.empty{
+    border: none;
+}
+#grid{
+    border: 2px solid red;
 }
