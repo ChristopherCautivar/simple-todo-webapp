@@ -1,3 +1,4 @@
+const COLUMN_COUNT = 4
 function makeEntityElement(entity, editFields){
     result = "";
     for(var property in entity){
@@ -108,8 +109,8 @@ function makeEntityElement(entity, id, editFields){
                     result += `&nbsp<input type='number' id='weight${id}' name='weight${id}' min='0' max='10' value='${entity[property]}'>`
                     break;
                 case "time_estimate":
-                    result += `&nbspHours: <input type='number' id='time_estimate_hours${id}' name='time_estimate_hours${id}' min ='0' max='24' value=''>` + 
-                        `&nbspMinutes: <input type='number' id='time_estimate_minutes${id}' name='time_estimate_minutes${id}' min ='0' max='60' value=''>`
+                    result += `&nbspHours: <input type='number' id='time_estimate_hours${id}' name='time_estimate_hours${id}' min ='0' max='24' value='${entity[property]/60}'>` + 
+                        `&nbspMinutes: <input type='number' id='time_estimate_minutes${id}' name='time_estimate_minutes${id}' min ='0' max='60' value='${entity[property]%60}'>`
                     break;
                 case "due_date":
                     // datetime

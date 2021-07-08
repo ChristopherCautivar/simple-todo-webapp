@@ -9,15 +9,13 @@
         <script>
             $(document).ready(function(){
                 // for each group loaded into the array of groups
-                makeGroup();
                 $.ajax({
                     method: "GET",
                     url: "/api/todos/testData",
                     dataType: "json",
                     success: function(result,status){
-                        for(todo in result){
-                            alert(result[todo]["title"])
-                        }
+                        makeGroup();
+                        $("#loading").hide("slow");
                     }
                 })
             });
@@ -26,6 +24,11 @@
     <body>
         <h1>Prototype:</h1>
         <div class="container-fluid" id="grid">
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" id="loading">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </body>
 </html>
