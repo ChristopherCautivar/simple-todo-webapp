@@ -9,11 +9,11 @@
             $(document).ready(function(){
                 $.ajax({
                     method: "GET",
-                    url: "/api/todos/getById/8",
+                    url: "/api/todos/getById/10",
                     dataType: "json",
                     success: function(result,status){
                         for(entity in result){
-                            $("#test").append(makeEntityElement(result[entity], entity, true))
+                            $("#test").append(makeEntityElement(result[entity], entity, false))
                         }
                     }
                 })
