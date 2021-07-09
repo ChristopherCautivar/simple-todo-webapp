@@ -26,11 +26,17 @@ function makeGroup(group){
     // will have to offset display id by group in the future
     id = 1
     $("#grid").append(
-        makeElement("group", `group${id}`,
-            makeElement("row title", `title${id}`, `<span><h3>Group ${id}</h3></span>`) + 
-            makeElement("row", `parents${id}`, "") +
-            makeElement("row", `children${id}`, "")
-        )
+        `
+            <div class="group" id="group${id}">
+                <div class="row title" id="title${id}">
+                    <span><h3>Group ${id}</h3></span>
+                </div>
+                <div class="row" id="parents${id}">
+                </div>
+                <div class="row" id="children${id}">
+                </div>
+            </div>
+        `
     )
     // populate todos
     makeTodos();
@@ -38,32 +44,32 @@ function makeGroup(group){
 function makeChild(){
     // if there is no child make an empty div
 }
-function makeTodos(todos){
+function makeTodos(todos, groupId){
     // append todo information into groups
     // first the parents
     groupId = 1
     todoId = [1,2,3]
     todoId.forEach(i => {
         $(`#parents${groupId}`).append(
-            makeElement("todo col-sm", `todo${i}`,
-                `
+            `
+            <div class="todo col-sm" id="todo${i}">
                 ${i}. Todo Item
                 <ul>
                     <li>Description and other fields</li>
                 </ul>
-                `
-            )
+            </div>
+            `
         )
         // then the children
         $(`#children${groupId}`).append(
-            makeElement("todo child col-sm", `todo${i}a`,
-                `
+            `<div class="todo child col-sm" id="todo${i}a">
+                
                 ${i}a. Todo Item
                 <ul>
                     <li>Description and other fields</li>
                 </ul>
-                `
-            )
+            </div>
+            `
         )
     });
 }
