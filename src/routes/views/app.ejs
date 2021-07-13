@@ -14,7 +14,11 @@
                     url: "/api/todos/testData",
                     dataType: "json",
                     success: function(result,status){
-                        makeGroup();
+                        // receives a list of Todo Objects
+                        //makeGroup();
+                        arr = new Array(20)
+                        arr.fill("test")
+                        makeGrid(arr.length,"grid",arr)
                         $("#loading").hide("slow");
                     }
                 })

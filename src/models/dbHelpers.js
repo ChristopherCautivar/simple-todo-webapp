@@ -7,7 +7,8 @@ const Todo = require("./Todo")
 module.exports = {
     addTodo,
     getTodoById,
-    addTag
+    addTag,
+    getAllTodos
 }
 
 async function addTodo(todo){
@@ -23,6 +24,11 @@ async function getTodoById(id){
     return await db("todos")
     .where("id", id)
     .first();
+}
+
+async function getAllTodos(limit){
+    return await db("todos")
+    .limit(limit);
 }
 
 async function addTag(tag){

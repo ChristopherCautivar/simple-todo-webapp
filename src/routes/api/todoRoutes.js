@@ -6,7 +6,7 @@ const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 
 // since server already uses this router, all paths are relative to the parameter given in server
-router.post("/", (req, res) => {
+router.post("/add", (req, res) => {
     // send req.body object to dbhelpers addTodo
     todos.addTodo(req.body)
     .then(todo => {
@@ -33,6 +33,17 @@ router.get("/getById/:id", (req, res) => {
         res.status(500).json({message : `error finding todo with id ${id} \n ${error}`})
     })
 });
+
+router.get("/getAll", (req,res) => {
+    // const {limit} = req.body;
+    const limit = 40;
+    todos.getAllTodos(limit)
+    .then(arr => {
+        res.status(200).json(arr.map(element => 
+            element = new Todo(element)
+        ));
+    })
+})
 
 router.get("/testData", (req,res) => {
     // send test objects when endpoint is hit

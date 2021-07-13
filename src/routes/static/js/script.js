@@ -1,12 +1,33 @@
 const COLUMN_COUNT = 4
-function makeEntityElement(entity, editFields){
-    result = "";
-    for(var property in entity){
-        // private properties should not be included in this for loop
-        // if editFields, also return the corresponding form or input type to allow the user to submit an ajax call
-        // to create/update the field. ex. textbox or datepicker
+const LOAD_BY = 40
+
+//probably should use destructuring to make optional values
+function makeGrid(count, elementName = "grid", todos = []){
+    // takes in a list of todos and prepares a grid for them
+    for(let i = 0; i<(count/COLUMN_COUNT)+1; i++){
+        // make rows
+        $(`#${elementName}`).append(
+            `
+            <div class="row" id=${i}>
+            </div>
+            `
+        )
+        for(let j=0; j<4; j++){
+            //insert columns into rows with id="i-j"
+            $(`#${i}`).append(
+                `
+                <div class="todo col-sm" id="${i}-${j}">
+                </div>
+                `
+            )
+            if(todos.length != 0){ insertIntoGrid(j,i,todos.shift()) }
+        }
     }
-    return result;
+    
+}
+
+function insertIntoGrid(x,y,content){
+    $(`#${y}-${x}`).append(content);
 }
 
 function makeGroup(group){
@@ -17,15 +38,15 @@ function makeGroup(group){
     id = 1
     $("#grid").append(
         `
-            <div class="group" id="group${id}">
-                <div class="row title" id="title${id}">
-                    <span><h3>Group ${id}</h3></span>
-                </div>
-                <div class="row" id="parents${id}">
-                </div>
-                <div class="row" id="children${id}">
-                </div>
+        <div class="group" id="group${id}">
+            <div class="row title" id="title${id}">
+                <span><h3>Group ${id}</h3></span>
             </div>
+            <div class="row" id="parents${id}">
+            </div>
+            <div class="row" id="children${id}">
+            </div>
+        </div>
         `
     )
     // populate todos
@@ -52,8 +73,8 @@ function makeTodos(todos, groupId){
         )
         // then the children
         $(`#children${groupId}`).append(
-            `<div class="todo child col-sm" id="todo${i}a">
-                
+            `
+            <div class="todo child col-sm" id="todo${i}a">
                 ${i}a. Todo Item
                 <ul>
                     <li>Description and other fields</li>
@@ -63,16 +84,7 @@ function makeTodos(todos, groupId){
         )
     });
 }
-// an example of the ajax call to make a new todo
-// $.ajax({
-//         method: "POST",
-//         url: "/api/todos/",
-//         dataType: "json",
-//         data: {},
-//         success: function(result,status){
-//             alert(result)
-//         }
-// })
+
 function makeEntityElement(entity, id, editFields){
     // only one of these should ever be on screen at a time
     // currently the problem is, I want this function to be able to accept a
@@ -134,7 +146,7 @@ function makeEntityElement(entity, id, editFields){
 function submitTodo(){
     $.ajax({
         method: "POST",
-        url: "/api/todos/",
+        url: "/api/todos/add",
         dataType: "json",
         data: {id : -1,
             dateCreated : "",
