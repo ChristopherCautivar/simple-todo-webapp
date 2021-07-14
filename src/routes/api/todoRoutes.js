@@ -35,13 +35,16 @@ router.get("/getById/:id", (req, res) => {
 });
 
 router.get("/getAll", (req,res) => {
-    // const {limit} = req.body;
+    // TODO: eventually import limit from user config
     const limit = 40;
     todos.getAllTodos(limit)
     .then(arr => {
-        res.status(200).json(arr.map(element => 
-            element = new Todo(element)
-        ));
+        formatted = {}
+        arr.forEach(t => {
+            formatted[`${t["id"]}`] = new Todo(t)
+        })
+        formatted["count"] = arr.length
+        res.status(200).json(formatted);
     })
 })
 

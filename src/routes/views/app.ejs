@@ -7,18 +7,19 @@
         <link rel="stylesheet" href="static/css/appStyles.css" type="text/css"/>
         <script src="static/js/script.js"></script>
         <script>
+            var loaded = {}
             $(document).ready(function(){
                 // for each group loaded into the array of groups
                 $.ajax({
                     method: "GET",
-                    url: "/api/todos/testData",
+                    url: "/api/todos/getAll",
                     dataType: "json",
+                    data: {"limit" : 40},
                     success: function(result,status){
                         // receives a list of Todo Objects
                         //makeGroup();
-                        arr = new Array(41)
-                        arr.fill("test")
-                        makeGrid(arr.length,"grid",arr)
+                        loaded = result
+                        makeGrid(result["count"],"grid",result)
                         $("#loading").hide("slow");
                     }
                 })
@@ -27,6 +28,8 @@
     </head>
     <body>
         <h1>Prototype:</h1>
+        <div class="container-fluid" id="inputTodo">
+        </div>
         <div class="container-fluid" id="grid">
         </div>
         <div class="d-flex justify-content-center">

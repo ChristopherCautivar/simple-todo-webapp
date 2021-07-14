@@ -2,9 +2,11 @@ const COLUMN_COUNT = 4
 const LOAD_BY = 40
 
 //probably should use destructuring to make optional values
-function makeGrid(count, elementName = "grid", todos = []){
+function makeGrid(count, elementName = "grid", todos = {}){
     // takes in a list of todos and prepares a grid for them
     // works without +1 on the iterator limit because of loosely typed
+    // declare iterator Generator to dynamically iterate through fields in the todos object
+    let iteratorGenerator = iterateObject(todos)
     for(let i = 0; i<(count/COLUMN_COUNT); i++){
         // make rows
         $(`#${elementName}`).append(
@@ -17,19 +19,28 @@ function makeGrid(count, elementName = "grid", todos = []){
             //insert columns into rows with id="i-j"
             $(`#${i}`).append(
                 `
-                <div style="visibility:collapse" class="todo col-sm" id="${i}-${j}">
+                <div style="visibility:collapse" class="cell col-sm" id="${i}-${j}">
                 </div>
                 `
             )
-            if(todos.length != 0){ insertIntoGrid(j,i,todos.shift()) }
+            id = iteratorGenerator.next().value
+            // overflow protection
+            if(id != -1){ insertIntoGrid(j,i, makeEntityElement(todos[id], id, false)) }
         }
     }
     
 }
 
 function insertIntoGrid(x,y,content){
-    $(`#${y}-${x}`).text(content);
+    $(`#${y}-${x}`).html(content);
     content != 0 ? $(`#${y}-${x}`).css("visibility","visible") : $(`#${y}-${x}`).css("visibility","collapse")
+}
+
+function* iterateObject(o){
+    for (var e in o){
+        yield e
+    }
+    return -1
 }
 
 function appendIntoGrid(x,y,content){

@@ -18,6 +18,10 @@ h1{
 .child{
     margin-left: 10px;
 }
-#grid{
-    border: 2px solid red;
+.row{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+ul{
+    margin: 0;
 }
