@@ -4,7 +4,8 @@ const LOAD_BY = 40
 //probably should use destructuring to make optional values
 function makeGrid(count, elementName = "grid", todos = []){
     // takes in a list of todos and prepares a grid for them
-    for(let i = 0; i<(count/COLUMN_COUNT)+1; i++){
+    // works without +1 on the iterator limit because of loosely typed
+    for(let i = 0; i<(count/COLUMN_COUNT); i++){
         // make rows
         $(`#${elementName}`).append(
             `
@@ -16,7 +17,7 @@ function makeGrid(count, elementName = "grid", todos = []){
             //insert columns into rows with id="i-j"
             $(`#${i}`).append(
                 `
-                <div class="todo col-sm" id="${i}-${j}">
+                <div style="visibility:collapse" class="todo col-sm" id="${i}-${j}">
                 </div>
                 `
             )
@@ -27,6 +28,11 @@ function makeGrid(count, elementName = "grid", todos = []){
 }
 
 function insertIntoGrid(x,y,content){
+    $(`#${y}-${x}`).text(content);
+    content != 0 ? $(`#${y}-${x}`).css("visibility","visible") : $(`#${y}-${x}`).css("visibility","collapse")
+}
+
+function appendIntoGrid(x,y,content){
     $(`#${y}-${x}`).append(content);
 }
 
