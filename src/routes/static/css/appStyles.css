@@ -22,6 +22,12 @@ h1{
     padding-bottom: 5px;
     padding-top: 5px;
 }
+.centered{
+    text-align: center;
+}
+.left{
+    text-align: left;
+}
 ul{
     margin: 0;
 }

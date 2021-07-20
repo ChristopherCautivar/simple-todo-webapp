@@ -16,10 +16,10 @@ function makeGrid(count, elementName = "grid", todos = {}){
             `
         )
         for(let j=0; j<4; j++){
-            //insert columns into rows with id="i-j"
+            //insert columns into rows with id="i_j"
             $(`#${i}`).append(
                 `
-                <div style="visibility:collapse" class="cell col-sm" id="${i}-${j}">
+                <div style="visibility:collapse" class="cell col-sm" id="${i}_${j}">
                 </div>
                 `
             )
@@ -32,8 +32,8 @@ function makeGrid(count, elementName = "grid", todos = {}){
 }
 
 function insertIntoGrid(x,y,content){
-    $(`#${y}-${x}`).html(content);
-    content != 0 ? $(`#${y}-${x}`).css("visibility","visible") : $(`#${y}-${x}`).css("visibility","collapse")
+    $(`#${y}_${x}`).html(content);
+    content != 0 ? $(`#${y}_${x}`).css("visibility","visible") : $(`#${y}_${x}`).css("visibility","collapse")
 }
 
 function* iterateObject(o){
@@ -44,7 +44,7 @@ function* iterateObject(o){
 }
 
 function appendIntoGrid(x,y,content){
-    $(`#${y}-${x}`).append(content);
+    $(`#${y}_${x}`).append(content);
 }
 
 function makeGroup(group){
@@ -107,7 +107,7 @@ function makeEntityElement(entity, id, editFields){
     // currently the problem is, I want this function to be able to accept a
     // new todo to build the todo maker interface, however we need the script from Todo.js, 
     // which cannot be found currently...
-    result = "<div class='container-fluid todo'>"
+    result = "<div class='d-flex justify-content-center container-fluid todo'><div class='centered'><div class='left'>"
     result += `<input type='hidden' id='id${id}' name='id${id}' value='${id}'>`;
     result += `<ul>`;
     for(var property in entity){
@@ -153,33 +153,61 @@ function makeEntityElement(entity, id, editFields){
             }
         }
     }
-    result += `</ul>`
+    result += `</ul></div>`
     if(editFields){
-        result += `<button id='submit' onclick='submitTodo()'>Submit</button><br>`
+        result += `<button id='submit_${id}' onclick='submitTodo(${id})'>Submit</button><br>`
     }
-    result += "</div>"
+    result += "</div></div>"
     return result;
 }
-function submitTodo(){
-    $.ajax({
-        method: "POST",
-        url: "/api/todos/add",
+
+async function promptNewTodo(){
+    var entity = ""
+    await $.ajax({
+        method: "GET",
+        url: "/api/todos/getClass",
         dataType: "json",
-        data: {id : -1,
-            dateCreated : "",
-            dateUpdated : "",
-            completed : 1,
-            title : "test title2",
-            description : "test description",
-            tags : [],
-            weight : 5,
-            prerequisites : [],
-            time_estimate : "",
-            due_date : ""},
         success: function(result,status){
-            alert(`ID of created entity: ${result}`)
+            entity = makeEntityElement(result, -1, true)
         }
     })
+    return entity;
+}
+
+function submitTodo(submitId){
+    todoData = {
+        id : submitId,
+        dateCreated : "",
+        dateUpdated : "",
+        completed : 1,
+        title : "test title3",
+        description : "test description",
+        tags : [],
+        weight : 5,
+        prerequisites : [],
+        time_estimate : "",
+        due_date : ""
+    }
+    console.log(todoData)
+    // $.ajax({
+    //     method: "POST",
+    //     url: "/api/todos/add",
+    //     dataType: "json",
+    //     data: {id : -1,
+    //         dateCreated : "",
+    //         dateUpdated : "",
+    //         completed : 1,
+    //         title : "test title3",
+    //         description : "test description",
+    //         tags : [],
+    //         weight : 5,
+    //         prerequisites : [],
+    //         time_estimate : "",
+    //         due_date : ""},
+    //     success: function(result,status){
+    //         alert(`ID of created entity: ${result}`)
+    //     }
+    // })
 }
 
 function capitalizeFirst(s){

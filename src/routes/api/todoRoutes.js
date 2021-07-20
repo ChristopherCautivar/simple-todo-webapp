@@ -48,6 +48,10 @@ router.get("/getAll", (req,res) => {
     })
 })
 
+router.get("/getClass", (req,res) => {
+    res.status(200).send(new Todo());
+})
+
 router.get("/testData", (req,res) => {
     // send test objects when endpoint is hit
     todo1 = new Todo({id : 1,
