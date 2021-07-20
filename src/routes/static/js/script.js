@@ -25,7 +25,7 @@ function makeGrid(count, elementName = "grid", todos = {}){
             )
             id = iteratorGenerator.next().value
             // overflow protection
-            if(id != -1){ insertIntoGrid(j,i, makeEntityElement(todos[id], id, false)) }
+            if(id && id !== -1){ insertIntoGrid(j,i, makeEntityElement(todos[id], id, false)) }
         }
     }
     
@@ -33,12 +33,14 @@ function makeGrid(count, elementName = "grid", todos = {}){
 
 function insertIntoGrid(x,y,content){
     $(`#${y}_${x}`).html(content);
-    content != 0 ? $(`#${y}_${x}`).css("visibility","visible") : $(`#${y}_${x}`).css("visibility","collapse")
+    content ? $(`#${y}_${x}`).css("visibility","visible") : $(`#${y}_${x}`).css("visibility","collapse")
 }
 
 function* iterateObject(o){
     for (var e in o){
-        yield e
+        if(e != "count"){
+            yield e
+        }
     }
     return -1
 }
@@ -107,6 +109,9 @@ function makeEntityElement(entity, id, editFields){
     // currently the problem is, I want this function to be able to accept a
     // new todo to build the todo maker interface, however we need the script from Todo.js, 
     // which cannot be found currently...
+    if (typeof entity != object) {
+        return ""
+    }
     result = "<div class='d-flex justify-content-center container-fluid todo'><div class='centered'><div class='left'>"
     result += `<input type='hidden' id='id${id}' name='id${id}' value='${id}'>`;
     result += `<ul>`;
