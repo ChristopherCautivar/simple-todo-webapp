@@ -12,15 +12,15 @@ h1{
     border-radius: 25px;
 }
 .todo{
-    border: 2px solid green;
+    border: 2px solid rgb(0, 204, 0);
     border-radius: 25px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 .child{
     margin-left: 10px;
-}
-.row{
-    padding-bottom: 5px;
-    padding-top: 5px;
 }
 .centered{
     text-align: center;
@@ -30,4 +30,5 @@ h1{
 }
 ul{
     margin: 0;
+    margin-bottom: 0;
 }

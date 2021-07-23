@@ -32,17 +32,18 @@ class Todo {
         prerequisites = [],
         time_estimate = "",
         due_date = ""} = {}) {
-        this.#id = id;
-        this.#dateCreated = dateCreated;
-        this.#dateUpdated = dateUpdated;
-        this.title = title;
-        this.completed = completed;
-        this.description = description;
-        this.#tags = tags;
-        this.weight = weight;
-        this.#prerequisites = prerequisites;
-        this.time_estimate = time_estimate;
-        this.due_date = due_date;
+            // CONVERT FIELDS HERE
+            this.#id = id;
+            this.#dateCreated = dateCreated;
+            this.#dateUpdated = dateUpdated;
+            this.title = title;
+            this.completed = parseInt(completed);
+            this.description = description;
+            this.#tags = tags;
+            this.weight = parseInt(weight) ? parseInt(weight) : 0;
+            this.#prerequisites = prerequisites;
+            this.time_estimate = time_estimate;
+            this.due_date = due_date;
     }
 
     // if necessary, these normally database-managed fields can be accessed

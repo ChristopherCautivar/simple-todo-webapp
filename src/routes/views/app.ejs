@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="static/css/appStyles.css" type="text/css"/>
         <script src="static/js/script.js"></script>
         <script>
+            // broken in memory storage of todos
             var loaded = {}
             $(document).ready(function(){
                 // for each group loaded into the array of groups
@@ -17,7 +18,7 @@
                     success: function(result,status){
                         // receives a list of Todo Objects
                         //makeGroup();
-                        loaded = result
+                        loaded = JSON.parse(JSON.stringify(result))
                         makeGrid(result["count"],"grid",result)
                         $("#loading").hide("slow");
                     }
@@ -25,7 +26,12 @@
                 // Immediate-Invoked Function Expresssion
                 (async function(){
                     $("#inputTodo").html(await promptNewTodo())
+                    $(".prompt").on("submit", function(e){
+                        submitForm.call(this,e)
+                    })
                 })();
+                // 2021-07-22 16:59:00
+                console.log(convertDueDate("2021-07-22 16:59:00"))
             });
         </script>
     </head>
