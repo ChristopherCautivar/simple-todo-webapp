@@ -108,14 +108,14 @@ function makeTodos(todos, groupId){
 }
 
 function makeEntityElement(entity, id, editFields, objType){
-    // only one of these should ever be on screen at a time
     // currently the problem is, I want this function to be able to accept a
     // new todo to build the todo maker interface, however we need the script from Todo.js, 
     // which cannot be found currently...
+    // this function has become something of a monolith
     if (typeof entity != "object") {
         return ""
     }
-    result = "<div class='d-flex justify-content-center container-fluid todo'>"
+    result = `<div class='d-flex p-0 justify-content-center container-fluid todo' id='${id}'>`
     if(editFields){ 
         // prep form
         result += `<form id='form${id}' class='prompt'`
@@ -129,8 +129,8 @@ function makeEntityElement(entity, id, editFields, objType){
         result += `>`
     }
     // align internals
-    result += "<div class='centered'><div class='left'>"
-    result += `<input type='hidden' id='id${id}' name='id' value='${id}'>`;
+    result += "<div class='centered container-fluid p-0'><div class='left'>"
+    result += `<input type='hidden' name='id' value='${id}'>`;
     result += `<ul>`;
     for(var property in entity){
         // private properties are not included in this for loop
@@ -146,16 +146,16 @@ function makeEntityElement(entity, id, editFields, objType){
             // might need some span tags for better formatting
             switch(property){
                 case "title":
-                    result += `&nbsp<input type='text' id='title${id}' name='title' value='${entity[property]}'></li>`
+                    result += `<input type='text' id='title${id}' name='title' value='${entity[property]}'></li>`
                     break;
                 case "description":
-                    result += `&nbsp<textarea id='description${id}' name='description'>${entity[property]}</textarea></li>`
+                    result += `<textarea id='description${id}' name='description'>${entity[property]}</textarea></li>`
                     break;
                 case "completed":
-                    result += `&nbsp<input type='checkbox' id='completed${id}' name='completed' value='isChecked' ${(Boolean(entity[property]) ? "checked=''" : "")}></li>`
+                    result += `<input type='checkbox' id='completed${id}' name='completed' value='${id}' class='check' ${(Boolean(entity[property]) ? "checked=''" : "")}></li>`
                     break;
                 case "weight":
-                    result += `&nbsp<input type='number' id='weight${id}' name='weight' min='0' max='10' value='${entity[property]}'></li>`
+                    result += `<input type='number' id='weight${id}' name='weight' min='0' max='10' value='${entity[property]}'></li>`
                     break;
                 case "time_estimate":
                     [hours, minutes] = entity[property] ? convertTimeEstimate(entity[property]) : ["", ""]
@@ -165,29 +165,42 @@ function makeEntityElement(entity, id, editFields, objType){
                 case "due_date":
                     // datetime
                     var today = new Date()
+                    if(entity[property]){ var due = convertDueDate(entity[property]) }
                     // value of form 2022-07-01
-                    result += `&nbsp<input type='date' id='due_date${id}' name='due_date' min='${today.getFullYear()}-${
-                        String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}' value="">`
+                    result += `<input type='date' id='due_date${id}' name='due_date' min='${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}' value="`
+                    result += due ? `${due.getFullYear()}-${String(Number(due.getMonth())+1).padStart(2,"0")}-${String(Number(due.getDate())).padStart(2,"0")}` : ""
+                    result += `"> `
                     // of form 00:00
-                    result += `&nbsp<input type='time' id='due_time${id}' name='due_time' value=""></li>`
+                    result += `<input type='time' id='due_time${id}' name='due_time' value="`
+                    result += due ? `${due.getHours()}:${due.getMinutes()}` : ""
+                    result += `"></li>`
                     break;
+                default:
             }
         } else {
             // just put the value of the property
             // special formatting: Time Estimate
             if(entity[property] && property == "time_estimate"){
                 [hours, minutes] = convertTimeEstimate(entity[property])
-                result += `Hours: ${hours}&nbspMinutes: ${minutes}</li>`
+                if (hours != 0) {result += `Hours: ${hours} `}
+                if (minutes != 0) {result += `Minutes: ${minutes}`}
+            } else if (entity[property] && property == "due_date"){
+                // special formatting DueDate
+                var due = convertDueDate(entity[property])
+                result += due.toDateString().split(" ").join("&nbsp") + " " + due.toLocaleTimeString("en-US").split(" ").join("&nbsp")
             } else if (editFields || entity[property] || property == "completed"){
-                result += `${entity[property]}</li>`
+                result += `${entity[property]}`
             }
+            result += "</li>"
         }
     }
     result += `</ul></div>`
     if(editFields){
-        result += `<input type='submit' id='submit${id}' value='Submit'></form>`
+        result += `<input type='submit' id='submit${id}' value='Submit'></div></form>`
+        result += `<button value='${id}' class='cancel'>Cancel</button>`
+    } else {
+        result += `</div><button value='${id}' class='edit'>Edit</button>`
     }
-    result += "</div></div>"
     return result;
 }
 
@@ -209,6 +222,8 @@ function submitForm(e){
     // may have to be made into an async in order to real time update the grid with newly made/updated todos
     e.preventDefault()
     var form = $(this)
+    console.log(form)
+    return
     info = {}
     form.serializeArray().forEach(f => {
         info[f.name] = f.value
@@ -244,6 +259,8 @@ function submitForm(e){
     delete info["time_estimate_hours"]
     delete info["time_estimate_minutes"]
     //
+    console.log("sent:")
+    console.log(info)
     $.ajax({
         method: "POST",
         url: form.attr("action"),
@@ -268,24 +285,31 @@ function convertTimeEstimate(s){
 }
 
 function convertDueDate(s){
+    // takes a database string and converts it into a Date object
     s = s.split(" ");
     // date part
     [year, month, day] = s[0].split("-");
     // time part
     [hours, minutes] = s[1].split(":");
-    // convert to 12 hour clock
-    if(Number(hours)>12){
-        [hours, m] = [`${Number(hours)-12}`, "PM"];
-    } else {
-        if(hours === "00"){
-            hours = "12";
-        } else {
-            m = "AM";
-        }
-    }
-    return [year, month, day, hours, minutes, m]
+    // month index off by one only when instantiating object
+    month = Number(month) - 1
+    return new Date(year, month, day, hours, minutes)
 }
 
 function removeUnderscore(s){
     return s.split("_").join(" ")
+}
+
+function cancel(){
+    button = $(this) 
+    console.log(button.attr("value"))
+}
+function edit(){
+    button = $(this) 
+    console.log(button.attr("value"))
+}
+function check(){
+    box = $(this)
+    console.log(box.attr("value"))
+    console.log(box.attr("checked"))
 }

@@ -16,7 +16,10 @@ async function addTodo(todo){
     // note that any private fields are ignored when knex
     // tries to add them to the database
     // TODO: add logic if todo.getId = -1, update, else insert new
-    const [id] = await db("todos").insert(new Todo(todo));
+    received = new Todo(todo)
+    console.log("received:")
+    console.log(received)
+    const [id] = await db("todos").insert(received);
     return id;
 }
 

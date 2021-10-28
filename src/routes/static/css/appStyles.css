@@ -12,12 +12,10 @@ h1{
     border-radius: 25px;
 }
 .todo{
+    border-radius: 20px;
     border: 2px solid rgb(0, 204, 0);
-    border-radius: 25px;
     margin-bottom: 5px;
     margin-top: 5px;
-    padding-top: 3px;
-    padding-bottom: 3px;
 }
 .child{
     margin-left: 10px;
@@ -29,6 +27,18 @@ h1{
     text-align: left;
 }
 ul{
-    margin: 0;
-    margin-bottom: 0;
+    margin-top: 3px;
+    margin-bottom: 6px;
+}
+form{
+    margin-top: 3px;
+    margin-bottom: 6px;
+}
+.edit{
+    border-radius: 5px;
+    margin: 6px;
+}
+.cancel{
+    border-radius: 5px;
+    margin: 6px;
 }

@@ -21,6 +21,8 @@
                         loaded = JSON.parse(JSON.stringify(result))
                         makeGrid(result["count"],"grid",result)
                         $("#loading").hide("slow");
+                        $(".edit").on("click", edit);
+                        $(".check").on("click", check)
                     }
                 });
                 // Immediate-Invoked Function Expresssion
@@ -29,9 +31,8 @@
                     $(".prompt").on("submit", function(e){
                         submitForm.call(this,e)
                     })
+                    $(".cancel").on("click", cancel)
                 })();
-                // 2021-07-22 16:59:00
-                console.log(convertDueDate("2021-07-22 16:59:00"))
             });
         </script>
     </head>
